@@ -32,3 +32,12 @@ The two primary types of RAM are **SRAM (Static RAM)** and **DRAM (Dynamic RAM)*
 RAM blocks in VLSI designs are integrated into larger systems using techniques like hierarchical design and floorplanning. The layout of RAM involves designing memory cells, sense amplifiers, bitline and wordline drivers, and peripheral circuits like row/column decoders. For high-density integration, memory cells must be optimized for minimal area while maintaining performance.
 
 In summary, the design of RAM in VLSI is a balance between speed, area, power, and cost. Engineers must choose between SRAM and DRAM depending on the application requirements, while also optimizing the memory’s structure and integration into the overall system.
+OUTPUT
+Time = 20 | Address = 0000, Data In = 10101010, Write Enable = 1, Data Out = 00000000
+Time = 40 | Address = 0000, Data In = 00000000, Write Enable = 0, Data Out = 10101010
+Time = 60 | Address = 0001, Data In = 11110000, Write Enable = 1, Data Out = 10101010
+Time = 80 | Address = 0001, Data In = 00000000, Write Enable = 0, Data Out = 11110000
+Time = 100 | Address = 0010, Data In = 11001100, Write Enable = 1, Data Out = 11110000
+Time = 120 | Address = 0010, Data In = 00000000, Write Enable = 0, Data Out = 11001100
+Time = 140 | Address = 0011, Data In = 10011001, Write Enable = 1, Data Out = 11001100
+Time = 160 | Address = 0011, Data In = 00000000, Write Enable = 0, Data Out = 10011001
