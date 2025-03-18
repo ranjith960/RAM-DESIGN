@@ -5,6 +5,9 @@
 *DOMAIN*:VLSI 
 *DURATION*:4 WEEKS 
 *MENTOR*:NEELA SANTOSH
+
+
+
 In VLSI (Very Large Scale Integration) design, RAM (Random Access Memory) is a critical component used to store data temporarily for quick access. It is one of the most widely used blocks in digital systems, especially in processors and embedded systems. The design of RAM in VLSI involves various considerations to ensure it is efficient, high-performance, and reliable.
 
 ### Types of RAM in VLSI
