@@ -1,0 +1,110 @@
+module RAM (
+    input clk,                // Clock signal
+    input we,                 // Write Enable (Active High)
+    input [3:0] addr,         // 4-bit Address (16 locations)
+    input [7:0] din,          // 8-bit Data Input (for writing)
+    output reg [7:0] dout     // 8-bit Data Output (for reading)
+);
+
+    // 16 x 8-bit memory array (16 addresses, 8 bits each)
+    reg [7:0] mem [15:0];      // Memory storage
+
+    // Always block for synchronous read/write operations
+    always @(posedge clk) begin
+        if (we) begin
+            // Write data into the memory at the specified address
+            mem[addr] <= din;
+        end
+        // Read data from the memory at the specified address
+        dout <= mem[addr];
+    end
+endmodule
+
+
+
+TESTBENCH
+module RAM_tb;
+    reg clk;                  // Clock signal
+    reg we;                   // Write Enable
+    reg [3:0] addr;           // 4-bit Address
+    reg [7:0] din;            // 8-bit Data Input
+    wire [7:0] dout;          // 8-bit Data Output
+
+    // Instantiate the RAM module
+    RAM uut (
+        .clk(clk),
+        .we(we),
+        .addr(addr),
+        .din(din),
+        .dout(dout)
+    );
+
+    // Clock Generation (50 MHz clock)
+    always begin
+        clk = 1'b0;
+        #10 clk = 1'b1;
+        #10;
+    end
+
+    // Test procedure
+    initial begin
+        // Initialize signals
+        we = 0;
+        addr = 4'b0000;
+        din = 8'b00000000;
+
+        // Monitor the output
+        $monitor("Time = %0t | Address = %b, Data In = %b, Write Enable = %b, Data Out = %b", $time, addr, din, we, dout);
+
+        // Test case 1: Write data to address 0
+        #20;
+        addr = 4'b0000;
+        din = 8'b10101010;
+        we = 1;  // Enable write
+        #20;
+        we = 0;  // Disable write
+
+        // Test case 2: Read data from address 0
+        #20;
+        addr = 4'b0000;
+        // The output should be 10101010 as it was written in the previous step
+
+        // Test case 3: Write data to address 1
+        #20;
+        addr = 4'b0001;
+        din = 8'b11110000;
+        we = 1;  // Enable write
+        #20;
+        we = 0;  // Disable write
+
+        // Test case 4: Read data from address 1
+        #20;
+        addr = 4'b0001;
+        // The output should be 11110000 as it was written in the previous step
+
+        // Test case 5: Write to multiple addresses and check values
+        #20;
+        addr = 4'b0010;
+        din = 8'b11001100;
+        we = 1;  // Enable write
+        #20;
+        we = 0;  // Disable write
+
+        #20;
+        addr = 4'b0011;
+        din = 8'b10011001;
+        we = 1;  // Enable write
+        #20;
+        we = 0;  // Disable write
+
+        // Test case 6: Read from addresses 2 and 3
+        #20;
+        addr = 4'b0010;  // Should output 11001100
+        #20;
+        addr = 4'b0011;  // Should output 10011001
+
+        // End simulation
+        #20;
+        $finish;
+    end
+endmodule
